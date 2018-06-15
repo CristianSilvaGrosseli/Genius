@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/startGameHutton"
         android:layout_width="137dp"
         android:layout_height="50dp"
         android:text="Jogar"

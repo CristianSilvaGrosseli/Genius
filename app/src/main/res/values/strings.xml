@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Genius</string>
+    <string name="amarelo1">amarelo</string>
+    <string name="verde1">verde</string>
+    <string name="azul1">azul</string>
+    <string name="vermelho1">vermelho</string>
+    <string name="sair1">sair</string>
+    <string name="jogar1">Jogar</string>
+    <string name="sair2">Sair</string>
+    <string name="bem_vindo_ao_genius1">Bem vindo ao Genius!</string>
 </resources>

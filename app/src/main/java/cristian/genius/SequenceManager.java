@@ -6,21 +6,27 @@ import java.util.Random;
 
 public class SequenceManager {
 
-    private List<Integer> listOfSteps;
+    private List<GeniusEnums> listOfSteps;
     private Random randomGenerator;
     private int currentIndex;
 
     public SequenceManager() {
 
         currentIndex = 0;
-        listOfSteps = new ArrayList<Integer>();
+        listOfSteps = new ArrayList<GeniusEnums>();
         randomGenerator = new Random();
     }
 
     //public methods
-    public int getCurrentStep()
+    public GeniusEnums getCurrentStep()
     {
-        return (int)listOfSteps.get(currentIndex);
+
+        return listOfSteps.get(currentIndex);
+    }
+
+    public GeniusEnums getStep(int index)
+    {
+        return listOfSteps.get(index);
     }
 
     public List getSequence()
@@ -30,6 +36,10 @@ public class SequenceManager {
 
     public int getCurrentIndex() {
         return currentIndex;
+    }
+
+    public int getSequenceSize() {
+        return listOfSteps.size();
     }
 
     public boolean isLastStep() {
@@ -47,7 +57,7 @@ public class SequenceManager {
 
     public void nextStep()
     {
-        if(isLastStep())
+        if(listOfSteps.isEmpty() || isLastStep())
         {
             generateRandomStep();
             resetIndex();
@@ -61,7 +71,24 @@ public class SequenceManager {
     //private methods
     private void generateRandomStep() {
 
-        listOfSteps.add(randomGenerator.nextInt(4));
+        int randomNum = randomGenerator.nextInt(4);
+        GeniusEnums color = GeniusEnums.BUTTON_YELLOW;
+        switch(randomNum)
+        {
+            case 0:
+                color = GeniusEnums.BUTTON_BLUE;
+                break;
+            case 1:
+                color = GeniusEnums.BUTTON_RED;
+                break;
+            case 2:
+                color = GeniusEnums.BUTTON_GREEN;
+                break;
+            case 3:
+                color = GeniusEnums.BUTTON_YELLOW;
+                break;
+        }
+        listOfSteps.add(color);
     }
 
     private void incIndex() {

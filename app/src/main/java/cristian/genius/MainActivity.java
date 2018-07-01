@@ -19,7 +19,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this, activity_genius.class);
                     startActivity(intent);
+                    finish();
                 }
+        });
+
+        Button quitGameButton = findViewById(R.id.quitGameButton);
+        quitGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                System.exit(0);
+            }
         });
     }
 }

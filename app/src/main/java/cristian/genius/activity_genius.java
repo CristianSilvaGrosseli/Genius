@@ -1,5 +1,6 @@
 package cristian.genius;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -49,6 +50,16 @@ public class activity_genius extends AppCompatActivity {
                 manager(GeniusEnums.BUTTON_YELLOW);
             }
         });
+
+        Button backToMenu = findViewById(R.id.buttonLeaveGame);
+        backToMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity_genius.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         this.showSequence();
     }
 
@@ -73,7 +84,12 @@ public class activity_genius extends AppCompatActivity {
         }
         else
         {
-            //chamar a activity que mostra o score da partida
+            Intent intent = new Intent(activity_genius.this, ScoreActivity.class);
+            Bundle b = new Bundle();
+            b.putInt("score",sequenceManager.getSequenceSize());
+            intent.putExtras(b);
+            startActivity(intent);
+            finish();
         }
     }
 

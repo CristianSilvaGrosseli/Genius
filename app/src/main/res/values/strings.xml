@@ -8,4 +8,7 @@
     <string name="jogar1">Jogar</string>
     <string name="sair2">Sair</string>
     <string name="bem_vindo_ao_genius1">Bem vindo ao Genius!</string>
+    <string name="title_activity_score">ScoreActivity</string>
+    <string name="your_score">Your Score!</string>
+    <string name="voltar">Voltar</string>
 </resources>

@@ -9,10 +9,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.os.Handler;
+import android.widget.Switch;
 
 public class activity_genius extends AppCompatActivity {
 
     SequenceManager sequenceManager;
+    boolean songMuted;
     MediaPlayer buttonBlueSong;
     MediaPlayer buttonRedSong;
     MediaPlayer buttonYellowSong;
@@ -23,6 +25,7 @@ public class activity_genius extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_genius);
 
+        songMuted = false;
         initializeSongs();
         enableButtons(false);
 
@@ -34,7 +37,13 @@ public class activity_genius extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    buttonBlueSong.start();
+                    if(!songMuted) {
+                        if(buttonBlueSong.isPlaying())
+                        {
+                            buttonBlueSong.stop();
+                        }
+                        buttonBlueSong.start();
+                    }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     manager(GeniusEnums.BUTTON_BLUE);
                 }
@@ -47,7 +56,13 @@ public class activity_genius extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    buttonRedSong.start();
+                    if(!songMuted) {
+                        if(buttonRedSong.isPlaying())
+                        {
+                            buttonRedSong.stop();
+                        }
+                        buttonRedSong.start();
+                    }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     manager(GeniusEnums.BUTTON_RED);
                 }
@@ -60,7 +75,12 @@ public class activity_genius extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    buttonGreenSong.start();
+                    if(!songMuted) {
+                        if(buttonGreenSong.isPlaying()) {
+                            buttonGreenSong.stop();
+                        }
+                        buttonGreenSong.start();
+                    }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     manager(GeniusEnums.BUTTON_GREEN);
                 }
@@ -73,7 +93,12 @@ public class activity_genius extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    buttonYellowSong.start();
+                    if(!songMuted) {
+                        if(buttonYellowSong.isPlaying()) {
+                           buttonYellowSong.stop();
+                        }
+                        buttonYellowSong.start();
+                    }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     manager(GeniusEnums.BUTTON_YELLOW);
                 }
@@ -96,6 +121,14 @@ public class activity_genius extends AppCompatActivity {
                 Intent intent = new Intent(activity_genius.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        final Switch muteButton = findViewById(R.id.muteButton);
+        muteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                songMuted = muteButton.isChecked();
             }
         });
     }
@@ -162,9 +195,7 @@ public class activity_genius extends AppCompatActivity {
 
     private void turnOnButton(GeniusEnums button)
     {
-        final GeniusEnums buttonToTurnOn = button;
-
-        String buttonName = buttonToTurnOn.name();
+        String buttonName = button.name();
 
         if (buttonName == "BUTTON_BLUE") {
             final Button buttonBlue = findViewById(R.id.buttonBlue);
@@ -199,18 +230,18 @@ public class activity_genius extends AppCompatActivity {
         }
     }
 
-    private void enableButtons(boolean disable) {
+    private void enableButtons(boolean enabled) {
         Button buttonGreen = findViewById(R.id.buttonGreen);
-        buttonGreen.setEnabled(disable);
+        buttonGreen.setEnabled(enabled);
 
         Button buttonBlue = findViewById(R.id.buttonBlue);
-        buttonBlue.setEnabled(disable);
+        buttonBlue.setEnabled(enabled);
 
         Button buttonRed = findViewById(R.id.buttonRed);
-        buttonRed.setEnabled(disable);
+        buttonRed.setEnabled(enabled);
 
         Button buttonYellow = findViewById(R.id.buttonYellow);
-        buttonYellow.setEnabled(disable);
+        buttonYellow.setEnabled(enabled);
     }
 
     private void initializeSongs() {

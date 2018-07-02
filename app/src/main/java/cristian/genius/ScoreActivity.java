@@ -23,6 +23,7 @@ public class ScoreActivity extends AppCompatActivity {
         int value = -1;
         if(b != null)
             value = b.getInt("score");
+        value=value-1;
 
         myScore = (TextView) findViewById(R.id.Score);
         myScore.setText(String.valueOf(value));

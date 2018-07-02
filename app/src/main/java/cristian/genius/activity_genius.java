@@ -32,11 +32,17 @@ public class activity_genius extends AppCompatActivity {
         sequenceManager = new SequenceManager();
         sequenceManager.nextStep();
 
+        turnOffButton(GeniusEnums.BUTTON_GREEN);
+        turnOffButton(GeniusEnums.BUTTON_RED);
+        turnOffButton(GeniusEnums.BUTTON_YELLOW);
+        turnOffButton(GeniusEnums.BUTTON_BLUE);
+
         final Button buttonBlue = findViewById(R.id.buttonBlue);
         buttonBlue.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    turnOnButton(GeniusEnums.BUTTON_BLUE);
                     if(!songMuted) {
                         if(buttonBlueSong.isPlaying())
                         {
@@ -45,6 +51,7 @@ public class activity_genius extends AppCompatActivity {
                         buttonBlueSong.start();
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    turnOffButton(GeniusEnums.BUTTON_BLUE);
                     manager(GeniusEnums.BUTTON_BLUE);
                 }
                 return true;
@@ -56,6 +63,7 @@ public class activity_genius extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    turnOnButton(GeniusEnums.BUTTON_RED);
                     if(!songMuted) {
                         if(buttonRedSong.isPlaying())
                         {
@@ -64,6 +72,7 @@ public class activity_genius extends AppCompatActivity {
                         buttonRedSong.start();
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    turnOffButton(GeniusEnums.BUTTON_RED);
                     manager(GeniusEnums.BUTTON_RED);
                 }
                 return true;
@@ -75,6 +84,7 @@ public class activity_genius extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    turnOnButton(GeniusEnums.BUTTON_GREEN);
                     if(!songMuted) {
                         if(buttonGreenSong.isPlaying()) {
                             buttonGreenSong.stop();
@@ -82,6 +92,7 @@ public class activity_genius extends AppCompatActivity {
                         buttonGreenSong.start();
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    turnOffButton(GeniusEnums.BUTTON_GREEN);
                     manager(GeniusEnums.BUTTON_GREEN);
                 }
                 return true;
@@ -93,6 +104,7 @@ public class activity_genius extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    turnOnButton(GeniusEnums.BUTTON_YELLOW);
                     if(!songMuted) {
                         if(buttonYellowSong.isPlaying()) {
                            buttonYellowSong.stop();
@@ -100,6 +112,7 @@ public class activity_genius extends AppCompatActivity {
                         buttonYellowSong.start();
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    turnOffButton(GeniusEnums.BUTTON_YELLOW);
                     manager(GeniusEnums.BUTTON_YELLOW);
                 }
                 return true;
@@ -199,16 +212,16 @@ public class activity_genius extends AppCompatActivity {
 
         if (buttonName == "BUTTON_BLUE") {
             final Button buttonBlue = findViewById(R.id.buttonBlue);
-            buttonBlue.setBackgroundColor(Color.rgb(76, 169, 250));
+            buttonBlue.setBackgroundColor(Color.rgb(0, 0, 255));
         } else if (buttonName == "BUTTON_RED") {
             final Button buttonRed = findViewById(R.id.buttonRed);
-            buttonRed.setBackgroundColor(Color.rgb(215, 89, 85));
+            buttonRed.setBackgroundColor(Color.rgb(255, 0, 0));
         } else if (buttonName == "BUTTON_GREEN") {
             final Button buttonGreen = findViewById(R.id.buttonGreen);
-            buttonGreen.setBackgroundColor(Color.rgb(135, 238, 83));
+            buttonGreen.setBackgroundColor(Color.rgb(0, 255, 0));
         } else if (buttonName == "BUTTON_YELLOW") {
             final Button buttonYellow = findViewById(R.id.buttonYellow);
-            buttonYellow.setBackgroundColor(Color.rgb(235, 246, 131));
+            buttonYellow.setBackgroundColor(Color.rgb(247, 254, 46));
         }
     }
 
@@ -217,16 +230,16 @@ public class activity_genius extends AppCompatActivity {
 
         if (buttonName == "BUTTON_BLUE") {
             final Button buttonBlue = findViewById(R.id.buttonBlue);
-            buttonBlue.setBackgroundColor(Color.rgb(0,0,128));
+            buttonBlue.setBackgroundColor(Color.rgb(8,8,138));
         } else if (buttonName == "BUTTON_RED") {
             final Button buttonRed = findViewById(R.id.buttonRed);
-            buttonRed.setBackgroundColor(Color.rgb(233,1,1));
+            buttonRed.setBackgroundColor(Color.rgb(138,8,8));
         } else if (buttonName == "BUTTON_GREEN") {
             final Button buttonGreen = findViewById(R.id.buttonGreen);
-            buttonGreen.setBackgroundColor(Color.rgb(11,97,11));
+            buttonGreen.setBackgroundColor(Color.rgb(8,138,8));
         } else if (buttonName == "BUTTON_YELLOW") {
             final Button buttonYellow = findViewById(R.id.buttonYellow);
-            buttonYellow.setBackgroundColor(Color.rgb(207,200,2));
+            buttonYellow.setBackgroundColor(Color.rgb(134,138,8));
         }
     }
 

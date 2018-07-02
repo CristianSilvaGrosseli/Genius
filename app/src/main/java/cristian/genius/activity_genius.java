@@ -2,8 +2,10 @@ package cristian.genius;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.os.Handler;
@@ -11,46 +13,71 @@ import android.os.Handler;
 public class activity_genius extends AppCompatActivity {
 
     SequenceManager sequenceManager;
+    MediaPlayer buttonBlueSong;
+    MediaPlayer buttonRedSong;
+    MediaPlayer buttonYellowSong;
+    MediaPlayer buttonGreenSong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_genius);
 
+        initializeSongs();
         enableButtons(false);
 
         sequenceManager = new SequenceManager();
         sequenceManager.nextStep();
 
         final Button buttonBlue = findViewById(R.id.buttonBlue);
-        buttonBlue.setOnClickListener(new View.OnClickListener() {
+        buttonBlue.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                manager(GeniusEnums.BUTTON_BLUE);
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    buttonBlueSong.start();
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    manager(GeniusEnums.BUTTON_BLUE);
+                }
+                return true;
             }
         });
 
         final Button buttonRed = findViewById(R.id.buttonRed);
-        buttonRed.setOnClickListener(new View.OnClickListener() {
+        buttonRed.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                manager(GeniusEnums.BUTTON_RED);
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    buttonRedSong.start();
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    manager(GeniusEnums.BUTTON_RED);
+                }
+                return true;
             }
         });
 
         final Button buttonGreen = findViewById(R.id.buttonGreen);
-        buttonGreen.setOnClickListener(new View.OnClickListener() {
+        buttonGreen.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                manager(GeniusEnums.BUTTON_GREEN);
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    buttonGreenSong.start();
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    manager(GeniusEnums.BUTTON_GREEN);
+                }
+                return true;
             }
         });
 
         final Button buttonYellow = findViewById(R.id.buttonYellow);
-        buttonYellow.setOnClickListener(new View.OnClickListener() {
+        buttonYellow.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                manager(GeniusEnums.BUTTON_YELLOW);
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    buttonYellowSong.start();
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    manager(GeniusEnums.BUTTON_YELLOW);
+                }
+                return true;
             }
         });
 
@@ -62,7 +89,7 @@ public class activity_genius extends AppCompatActivity {
                 enableButtons(true);
             }
         });
-                Button backToMenu = findViewById(R.id.buttonLeaveGame);
+        Button backToMenu = findViewById(R.id.buttonLeaveGame);
         backToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,67 +104,59 @@ public class activity_genius extends AppCompatActivity {
         boolean isRight = false;
         GeniusEnums currentStep = this.sequenceManager.getCurrentStep();
 
-        if(button == currentStep)
-        {
+        if (button == currentStep) {
             isRight = true;
         }
 
         return isRight;
     }
 
-    private void manager(GeniusEnums button)
-    {
-        if(isRightStep(button))
-        {
+    private void manager(GeniusEnums button) {
+        if (isRightStep(button)) {
             boolean showSequence = sequenceManager.isLastStep();
 
             sequenceManager.nextStep();
 
-            if(showSequence)
-            {
+            if (showSequence) {
                 enableButtons(false);
                 showSequence();
                 enableButtons(true);
             }
-        }
-        else
-        {
+        } else {
             Intent intent = new Intent(activity_genius.this, ScoreActivity.class);
             Bundle b = new Bundle();
-            b.putInt("score",sequenceManager.getSequenceSize());
+            b.putInt("score", sequenceManager.getSequenceSize());
             intent.putExtras(b);
             startActivity(intent);
             finish();
         }
     }
 
-    private void showSequence()
-    {
+    private void showSequence() {
         int sequenceSize = sequenceManager.getSequenceSize();
 
-            Handler h = new Handler();
+        Handler h = new Handler();
 
-            long delay = 0;
-            for(int i = 0; i < sequenceSize; i++)
-            {
-                final int index = i;
-                h.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        turnOnButton(sequenceManager.getStep(index));
-                    }
-                }, delay);
+        long delay = 1000;
+        for (int i = 0; i < sequenceSize; i++) {
+            final int index = i;
+            h.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    turnOnButton(sequenceManager.getStep(index));
+                }
+            }, delay);
 
-                delay += 1000;
+            delay += 1000;
 
-                h.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        turnOffButton(sequenceManager.getStep(index));
-                    }
-                }, delay);
-                delay += 1000;
-            }
+            h.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    turnOffButton(sequenceManager.getStep(index));
+                }
+            }, delay);
+            delay += 1000;
+        }
     }
 
     private void turnOnButton(GeniusEnums button) {
@@ -147,7 +166,7 @@ public class activity_genius extends AppCompatActivity {
 
         if (buttonName == "BUTTON_BLUE") {
             final Button buttonBlue = findViewById(R.id.buttonBlue);
-            buttonBlue.setBackgroundColor(Color.rgb(76,169,250));
+            buttonBlue.setBackgroundColor(Color.rgb(76, 169, 250));
         } else if (buttonName == "BUTTON_RED") {
             final Button buttonRed = findViewById(R.id.buttonRed);
             buttonRed.setBackgroundColor(Color.rgb(215, 89, 85));
@@ -160,34 +179,25 @@ public class activity_genius extends AppCompatActivity {
         }
     }
 
-    private void turnOffButton(GeniusEnums button)
-    {
+    private void turnOffButton(GeniusEnums button) {
         String buttonName = button.name();
 
-        if(buttonName == "BUTTON_BLUE")
-        {
+        if (buttonName == "BUTTON_BLUE") {
             final Button buttonBlue = findViewById(R.id.buttonBlue);
-            buttonBlue.setBackgroundColor(Color.rgb(255,255,255));
-        }
-        else  if(buttonName == "BUTTON_RED")
-        {
+            buttonBlue.setBackgroundColor(Color.rgb(255, 255, 255));
+        } else if (buttonName == "BUTTON_RED") {
             final Button buttonRed = findViewById(R.id.buttonRed);
-            buttonRed.setBackgroundColor(Color.rgb(255,255,255));
-        }
-        else if(buttonName == "BUTTON_GREEN")
-        {
+            buttonRed.setBackgroundColor(Color.rgb(255, 255, 255));
+        } else if (buttonName == "BUTTON_GREEN") {
             final Button buttonGreen = findViewById(R.id.buttonGreen);
-            buttonGreen.setBackgroundColor(Color.rgb(255,255,255));
-        }
-        else if(buttonName == "BUTTON_YELLOW")
-        {
+            buttonGreen.setBackgroundColor(Color.rgb(255, 255, 255));
+        } else if (buttonName == "BUTTON_YELLOW") {
             final Button buttonYellow = findViewById(R.id.buttonYellow);
-            buttonYellow.setBackgroundColor(Color.rgb(255,255,255));
+            buttonYellow.setBackgroundColor(Color.rgb(255, 255, 255));
         }
     }
 
-    private void enableButtons(boolean disable)
-    {
+    private void enableButtons(boolean disable) {
         Button buttonGreen = findViewById(R.id.buttonGreen);
         buttonGreen.setEnabled(disable);
 
@@ -199,5 +209,15 @@ public class activity_genius extends AppCompatActivity {
 
         Button buttonYellow = findViewById(R.id.buttonYellow);
         buttonYellow.setEnabled(disable);
+    }
+
+    private void initializeSongs() {
+        buttonBlueSong = MediaPlayer.create(this, R.raw.sword_hit);
+
+        buttonGreenSong = MediaPlayer.create(this, R.raw.sword_whip);
+
+        buttonYellowSong = MediaPlayer.create(this, R.raw.frog);
+
+        buttonRedSong = MediaPlayer.create(this, R.raw.meeow);
     }
 }

@@ -73,7 +73,8 @@ public class activity_genius extends AppCompatActivity {
         });
     }
 
-    private boolean isRightStep(GeniusEnums button) {
+    private boolean isRightStep(GeniusEnums button)
+    {
         boolean isRight = false;
         GeniusEnums currentStep = this.sequenceManager.getCurrentStep();
 
@@ -140,7 +141,8 @@ public class activity_genius extends AppCompatActivity {
             }
     }
 
-    private void turnOnButton(GeniusEnums button) {
+    private void turnOnButton(GeniusEnums button)
+    {
         final GeniusEnums buttonToTurnOn = button;
 
         String buttonName = buttonToTurnOn.name();
@@ -167,22 +169,22 @@ public class activity_genius extends AppCompatActivity {
         if(buttonName == "BUTTON_BLUE")
         {
             final Button buttonBlue = findViewById(R.id.buttonBlue);
-            buttonBlue.setBackgroundColor(Color.rgb(255,255,255));
+            buttonBlue.setBackgroundColor(Color.rgb(0,0,128));
         }
         else  if(buttonName == "BUTTON_RED")
         {
             final Button buttonRed = findViewById(R.id.buttonRed);
-            buttonRed.setBackgroundColor(Color.rgb(255,255,255));
+            buttonRed.setBackgroundColor(Color.rgb(233,1,1));
         }
         else if(buttonName == "BUTTON_GREEN")
         {
             final Button buttonGreen = findViewById(R.id.buttonGreen);
-            buttonGreen.setBackgroundColor(Color.rgb(255,255,255));
+            buttonGreen.setBackgroundColor(Color.rgb(11,97,11));
         }
         else if(buttonName == "BUTTON_YELLOW")
         {
             final Button buttonYellow = findViewById(R.id.buttonYellow);
-            buttonYellow.setBackgroundColor(Color.rgb(255,255,255));
+            buttonYellow.setBackgroundColor(Color.rgb(207,200,2));
         }
     }
 

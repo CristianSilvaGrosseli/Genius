@@ -1,14 +1,18 @@
 package cristian.genius;
 
 import android.content.Intent;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewDebug;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 public class ScoreActivity extends AppCompatActivity {
+
+    private TextView myScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +24,8 @@ public class ScoreActivity extends AppCompatActivity {
         if(b != null)
             value = b.getInt("score");
 
-        TextView textView = (TextView) findViewById(R.id.Score);
-        //textView.setText(value);
+        myScore = (TextView) findViewById(R.id.Score);
+        myScore.setText(String.valueOf(value));
 
         Button backToMenu = findViewById(R.id.backToMenu);
         backToMenu.setOnClickListener(new View.OnClickListener() {

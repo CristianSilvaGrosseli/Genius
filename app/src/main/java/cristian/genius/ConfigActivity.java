@@ -13,12 +13,5 @@ public class ConfigActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config);
 
-        fileHandler = new FileHandler();
-        List<Player> players;
-        try {
-            players = fileHandler.getPlayers();
-        } catch (IOException e){
-            throw new RuntimeException(e);
-        }
     }
 }

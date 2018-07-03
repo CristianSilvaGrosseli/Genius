@@ -19,7 +19,7 @@ public class FileHandler {
     private String filePath;
 
     FileHandler() {
-        filePath = "./configGenius.json";
+        filePath = "/configGenius.json";
 
          try {
              createDefaultFile();
@@ -32,7 +32,8 @@ public class FileHandler {
     private void createDefaultFile() throws IOException {
         File file = new File(filePath);
 
-        if (!file.exists()) {
+        if (!file.createNewFile()) {
+
             try {
                 JSONObject fileData = new JSONObject();
 
@@ -51,9 +52,9 @@ public class FileHandler {
                 JSONObject playersObject = new JSONObject();
                 playersObject.put("players", players);
 
-                fileData.put("score", fileData);
+                fileData.put("score", playersObject);
 
-                FileWriter writer = new FileWriter(filePath);
+                FileWriter writer = new FileWriter(file);
                 writer.write(fileData.toString());
 
                 writer.flush();

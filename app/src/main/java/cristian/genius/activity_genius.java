@@ -185,7 +185,7 @@ public class activity_genius extends AppCompatActivity {
 
         Handler h = new Handler();
 
-        long delay = 1000;
+        long delay = 500;
         for (int i = 0; i < sequenceSize; i++) {
             final int index = i;
             h.postDelayed(new Runnable() {
@@ -195,7 +195,7 @@ public class activity_genius extends AppCompatActivity {
                 }
             }, delay);
 
-            delay += 1000;
+            delay += 500;
 
             h.postDelayed(new Runnable() {
                 @Override
@@ -203,7 +203,7 @@ public class activity_genius extends AppCompatActivity {
                     turnOffButton(sequenceManager.getStep(index));
                 }
             }, delay);
-            delay += 1000;
+            delay += 500;
         }
     }
 

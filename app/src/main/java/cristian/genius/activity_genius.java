@@ -125,6 +125,7 @@ public class activity_genius extends AppCompatActivity {
             public void onClick(View v) {
                 showSequence();
                 enableButtons(true);
+                initGameButton.setEnabled(false);
             }
         });
         Button backToMenu = findViewById(R.id.buttonLeaveGame);

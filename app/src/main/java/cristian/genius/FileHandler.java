@@ -150,4 +150,44 @@ public class FileHandler {
 
         return ret;
     }
+
+    public void savePlayer(String name, int score, int indexToReplace) throws IOException{
+
+        File file = new File(filePath);
+
+        if(!file.exists()) {
+            this.createDefaultFile();
+            file = new File(filePath);
+        }
+
+        try {
+            JSONObject playerObject = new JSONObject();
+            playerObject.put("name", name);
+            playerObject.put("hits", score);
+
+            FileReader reader = new FileReader(file);
+            JSONObject fileObject = new JSONObject(reader.toString());
+
+            JSONObject scoreObject = fileObject.getJSONObject("score");
+            JSONArray players = scoreObject.getJSONArray("players");
+
+            if (indexToReplace >= 0) {
+                players.put(indexToReplace, playerObject);
+            } else {
+                players.put(playerObject);
+            }
+
+            scoreObject.put("players", players);
+            fileObject.put("score", scoreObject);
+
+            FileWriter writer = new FileWriter(filePath);
+            writer.write(fileObject.toString());
+
+            reader.close();
+            writer.flush();
+            writer.close();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }
